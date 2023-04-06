@@ -24,7 +24,6 @@ class InstallData
                 'bin/m setup:upgrade',
                 'bin/m common:merge',
                 'bin/m deploy:mode:set dev',
-                'bin/m cache:clean',
             ]
         ];
 
