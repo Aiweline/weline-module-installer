@@ -22,7 +22,7 @@ class InstallData
                 'bin/m command:upgrade',
                 'bin/m module:upgrade',
                 'bin/m common:merge',
-                'bin/m deploy:mode:set dev',
+                'bin/m deploy:mode:set default',
             ]
         ];
 
