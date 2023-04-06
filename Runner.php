@@ -40,14 +40,6 @@ class Runner
         return $installConfig->run($params);
     }
 
-    public function systemInstall(): array
-    {
-        /**@var $install Install */
-        $install = ObjectManager::getInstance(Install::class);
-
-        return $install->run();
-    }
-
     public function systemCommands(): array
     {
         /**@var $commands Commands */
