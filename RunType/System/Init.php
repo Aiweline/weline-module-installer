@@ -29,6 +29,7 @@ class Init
         }
         $env['admin']     = $params['admin'];
         $env['api_admin'] = $params['api_admin'];
+        $env['debug_key'] = uniqid('',true);
         $file             = new File();
         $file->open($env_instance::path_ENV_FILE, $file::mode_w);
         $text = '<?php return ' . var_export($env, true) . ';';
