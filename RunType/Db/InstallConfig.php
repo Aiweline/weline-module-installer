@@ -32,11 +32,11 @@ class InstallConfig
     public function run(array $params): array
     {
         $db_config = $params['db']??'';
-        $debug_db_config = $params['debug_db']??'';
+        $sandbox_db_config = $params['sandbox_db']??'';
         $tmp    = [];
         $msg    = '-------  数据库配置安装...  -------';
         $hasErr = false;
-        if (empty($db_config)||empty($debug_db_config)) {
+        if (empty($db_config)||empty($sandbox_db_config)) {
             $hasErr = true;
             $msg    = '异常的$params参数';
             if (CLI) {
@@ -116,9 +116,9 @@ class InstallConfig
         }
 
         // 数据库链接检测
-        $debug_db_conf = [
-            'default' => $debug_db_config['type'],
-            'master'  => $debug_db_config,
+        $sandbox_db_conf = [
+            'default' => $sandbox_db_config['type'],
+            'master'  => $sandbox_db_config,
             'slaves'  => []
         ];
         if (CLI) {
@@ -127,7 +127,7 @@ class InstallConfig
         $tmp['数据库：1、Debug调试数据库链接检测...'] = '系统';
         try {
             //初始化一个PDO对象
-            $dbh = new PDO($debug_db_config['type'] . ':host=' . $debug_db_config['hostname'] . ';dbname=' . $debug_db_config['database'], $debug_db_config['username'], $debug_db_config['password']);
+            $dbh = new PDO($sandbox_db_config['type'] . ':host=' . $sandbox_db_config['hostname'] . ';dbname=' . $sandbox_db_config['database'], $sandbox_db_config['username'], $sandbox_db_config['password']);
             if (CLI) {
                 $this->printer->success('PDO数据库链接检测通过', 'OK');
             }
@@ -148,7 +148,7 @@ class InstallConfig
         }
         $tmp['数据库：2、调试Debug数据库信息安装...'] = '系统';
         try {
-            Env::getInstance()->setConfig('debug_db', $debug_db_conf);
+            Env::getInstance()->setConfig('debug_db', $sandbox_db_conf);
             $msg = '数据库安装初始化成功【✔】';
             if (CLI) {
                 $this->printer->success($msg, 'OK');
@@ -162,7 +162,7 @@ class InstallConfig
                 exit();
             }
             $tmp['初始化保存'] = $msg;
-            return ['data' => $debug_db_conf, 'hasErr' => $hasErr, 'msg' => $msg];
+            return ['data' => $sandbox_db_conf, 'hasErr' => $hasErr, 'msg' => $msg];
         }
 
         return ['data' => $tmp, 'hasErr' => $hasErr, 'msg' => '数据库配置...'];
