@@ -9,6 +9,8 @@
 
 namespace Weline\Installer\Helper;
 
+use Weline\Framework\Console\Console\Command\Upgrade;
+
 class InstallData
 {
     public function getData(string $key = '')
@@ -20,12 +22,8 @@ class InstallData
             ],
             'commands' => [
                 'bin/m command:upgrade',
-                'bin/m module:upgrade',
-                'bin/m setup:upgrade',
-                'bin/m common:merge',
                 'bin/m deploy:mode:set dev',
-                'bin/m module:upgrade',
-                'bin/m cache:clear -f',
+                'bin/m setup:upgrade',
             ]
         ];
 
